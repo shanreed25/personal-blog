@@ -1,14 +1,21 @@
 body {
     background-color: blueviolet;
 }
+section{
+    margin-top: 30px;
+}
 
-form{
+form, .input-container{
     display: flex;
     flex-direction: column;
 }
 
-label, button {
-    margin-top: 20px;
+.input-container {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 10px;
 }
 
 button{
