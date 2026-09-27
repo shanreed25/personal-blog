@@ -21,8 +21,12 @@ const noPostMsg = document.querySelector("#no-post-message");
 // console.log(noPostMsg);
 
 
-function validateTitle(){console.log(titleInput.validity);}
+function validateTitle(){
+    console.log(titleInput.validity);
+    titleError.innerText = titleInput.validity.valueMissing ? "Title is required" : "";
+
+}
 function validateContent(){console.log(contentInput.validity);}
 
-titleInput.addEventListener("click", function (){validateTitle();})
-contentInput.addEventListener("click", function (){validateContent()})
+titleInput.addEventListener("input", function (){validateTitle();})
+contentInput.addEventListener("input", function (){validateContent()})
