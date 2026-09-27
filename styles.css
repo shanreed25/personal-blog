@@ -1,0 +1,12 @@
+body {
+    background-color: blueviolet;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 20px;
+}
