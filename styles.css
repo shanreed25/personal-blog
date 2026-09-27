@@ -1,6 +1,13 @@
 body {
-    background-color: blueviolet;
+    background-color: rgb(211, 177, 243);
+    font-family: "Roboto Condensed", sans-serif;
 }
+
+main{
+    margin: 0 auto;
+    max-width: 500px;
+}
+
 section{
     margin-top: 30px;
 }
@@ -18,8 +25,27 @@ label {
     margin-bottom: 10px;
 }
 
+input, textarea{
+    border: none;
+    border: 2px inset rgb(125, 0, 228);
+    border-radius: 5px;
+}
+
 button{
+    border: none;
+    color: #ffffff;
+    font-weight: bolder;
+    border: 2px outset rgb(2, 1, 3);
+    border-radius: 5px;
+    background-color: rgb(125, 0, 228) ;
     align-self: center;
+    padding: 5px 10px;
+}
+
+button:hover{
+    color: rgb(125, 0, 228);
+    border: 2px solid rgb(125, 0, 228) ;
+    background-color: #ffffff ;
 }
 
 .posts{
