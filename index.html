@@ -18,20 +18,20 @@
     <main>
         <section>
             <h2>Add New Post</h2>
-            <form id="new-post" novalidate>
+            <form id="new-post-form" novalidate>
                 <div class="input-container">
                     <label for="title">Title</label>
                     <input type="text" name="title" id="title" maxlength="100"  required>
-                    <span id="title-error"></span>
+                    <span id="title-error" class="error-message"></span>
                 </div>
 
                 <div class="input-container">
                     <label for="content">Write Your Post</label>
                     <textarea name="content" id="content" rows="5" required></textarea>
-                    <span id="title-error"></span>
+                    <span id="content-error" class="error-message"></span>
                 </div>
 
-                <button type="submit" id="add-btn">Add Post</button>
+                <button type="submit" id="add-post-btn">Add Post</button>
             </form>
         </section>
 

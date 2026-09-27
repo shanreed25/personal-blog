@@ -31,6 +31,14 @@ input, textarea{
     border-radius: 5px;
 }
 
+.error-message {
+  display: block;
+  color: #e74c3c;
+  font-size: 0.9em;
+  margin-top: 5px;
+  min-height: 1em;
+}
+
 button{
     border: none;
     color: #ffffff;
