@@ -11,14 +11,6 @@ const contentError = document.querySelector("#content-error");
 const postContainer = document.querySelector("#post-container");
 const noPostMsg = document.querySelector("#no-post-message");
 
-// console.log(form);
-// console.log(titleInput);
-// console.log(contentInput);
-// console.log(addPostBtn);
-// console.log(titleError);
-// console.log(contentError);
-// console.log(postContainer);
-// console.log(noPostMsg);
 
 //Title error messages object, that maps the flag to the error message
 const titleErrorMsgs = {
@@ -26,6 +18,13 @@ const titleErrorMsgs = {
     tooLong: "Title must be 100 characters or less",//this will neverbe true because i am using maxlength attribute int the HTML, so this error message will never show
     customError: null, //null will make it use the validationMessage
 }
+
+//Content error messages object, that maps the flag to the error message
+const contentErrorMsgs = {
+    valueMissing: "Content is required" ,
+    customError: null, //null will make it use the validationMessage
+}
+
 
 
 //this function works for both title and content
@@ -55,4 +54,4 @@ function validateInput(input, errSpan, inputMessages){
 //addEventListener passes the event object as the first argument automatically
 // but using a arrow function allows the three values I need to be passed instead
 titleInput.addEventListener("input", () => validateInput(titleInput, titleError, titleErrorMsgs))
-contentInput.addEventListener("input", function (){validateContent()})
+contentInput.addEventListener("input", function (){validateInput(contentInput, contentError, contentErrorMsgs)})
