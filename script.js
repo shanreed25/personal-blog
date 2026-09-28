@@ -20,13 +20,39 @@ const noPostMsg = document.querySelector("#no-post-message");
 // console.log(postContainer);
 // console.log(noPostMsg);
 
-
-function validateTitle(){
-    console.log(titleInput.validity);
-    titleError.innerText = titleInput.validity.valueMissing ? "Title is required" : "";
-
+//Title error messages object, that maps the flag to the error message
+const titleErrorMsgs = {
+    valueMissing: "Title is required" ,
+    tooLong: "Title must be 100 characters or less",//this will neverbe true because i am using maxlength attribute int the HTML, so this error message will never show
+    customError: null, //null will make it use the validationMessage
 }
-function validateContent(){console.log(contentInput.validity);}
 
-titleInput.addEventListener("input", function (){validateTitle();})
+
+//this function works for both title and content
+function validateInput(input, errSpan, inputMessages){
+    //check inputs for only spaces and then set a custom error message
+    if (input.value.length > 0 && input.value.trim() === "") {
+        input.setCustomValidity("Enter more than just spaces");
+    } else {
+        input.setCustomValidity("");
+    }
+
+    //Object.entries(inputMessages) turns the object into an array, where each value is an array
+    //with the matching key and value like [[key1, value1], [key2, value2] etc....]
+    // then the each [key, value] array is destructured into a flag and message avriable
+    for (const [flag, message] of Object.entries(inputMessages)){
+        if (input.validity[flag]) {//look up each flag on the validity object, then sets error message for the first one that is true
+            errSpan.innerText = message ?? input.validationMessage; //use message unless message is null or undefined, then use field.validationMessage
+            return false;//I only want one message to show so the loop needs to stop, and return false so the form does not submit
+        }
+    }
+    errSpan.innerText = "";//if the loop completes with no match the span is cleared
+    return true;// need the function to return true or false because that is the signal that the form is ok to submit
+}
+
+
+
+//addEventListener passes the event object as the first argument automatically
+// but using a arrow function allows the three values I need to be passed instead
+titleInput.addEventListener("input", () => validateInput(titleInput, titleError, titleErrorMsgs))
 contentInput.addEventListener("input", function (){validateContent()})
