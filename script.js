@@ -58,7 +58,7 @@ contentInput.addEventListener("input", () => validateInput(contentInput, content
 
 form.addEventListener("submit", function (e){
     e.preventDefault();
-    console.log("Submitted");
+    
 
     const titileValid = validateInput(titleInput, titleError, titleErrorMsgs);
     const contentValid = validateInput(contentInput, contentError, contentErrorMsgs);
@@ -80,10 +80,25 @@ form.addEventListener("submit", function (e){
     const firstInvalidfield = form.querySelector(":invalid");
 
     if (formValid) {
+     
+        const post = {
+            id: crypto.randomUUID(),
+            title: titleInput.value,
+            content: contentInput.value,
+            timestamp: new Date(Date.now()),
+        }
+        posts.push(post)
+        console.log(posts);
         alert("Form Submitted");
+        
         form.reset();
+        
     } else if (firstInvalidfield) {
         //If any field is invalid, focus on the first invalid field.
         firstInvalidfield.focus();
   }
-})
+});
+
+const post = {
+
+}
