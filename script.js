@@ -94,9 +94,7 @@ form.addEventListener("submit", function (e){
         
         form.reset();
 
-        /*when the form is resets the fields then become empty again so
-            the touched class needs to be removed from the input and textarea
-        */
+        /*remove touch class from input*/
     [titleInput, contentInput].forEach(
       (input) => input.classList.remove("touched"),
     );
