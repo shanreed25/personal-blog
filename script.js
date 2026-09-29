@@ -84,8 +84,8 @@ form.addEventListener("submit", function (e){
      
         const post = {
             id: crypto.randomUUID(),
-            title: titleInput.value,
-            content: contentInput.value,
+            title: titleInput.value.trim(),
+            content: contentInput.value.trim(),
             timestamp: new Date(Date.now()),
         }
         posts.push(post)
