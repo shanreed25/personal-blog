@@ -17,13 +17,13 @@ const titleErrorMsgs = {
     valueMissing: "Title is required" ,
     tooLong: "Title must be 100 characters or less",//this will neverbe true because i am using maxlength attribute int the HTML, so this error message will never show
     customError: null, //null will make it use the validationMessage
-}
+};
 
 //Content error messages object, that maps the flag to the error message
 const contentErrorMsgs = {
     valueMissing: "Content is required" ,
     customError: null, //null will make it use the validationMessage
-}
+};
 
 
 
@@ -47,11 +47,32 @@ function validateInput(input, errSpan, inputMessages){
     }
     errSpan.innerText = "";//if the loop completes with no match the span is cleared
     return true;// need the function to return true or false because that is the signal that the form is ok to submit
-}
+};
 
 
 
-//addEventListener passes the event object as the first argument automatically
-// but using a arrow function allows the three values I need to be passed instead
-titleInput.addEventListener("input", () => validateInput(titleInput, titleError, titleErrorMsgs))
-contentInput.addEventListener("input", function (){validateInput(contentInput, contentError, contentErrorMsgs)})
+// addEventListener passes the event object as the first argument automatically,
+// so validateInput is wrapped in a function that calls it with the three values it needs
+titleInput.addEventListener("input", () => validateInput(titleInput, titleError, titleErrorMsgs));
+contentInput.addEventListener("input", () => validateInput(contentInput, contentError, contentErrorMsgs));
+
+form.addEventListener("submit", function (e){
+    e.preventDefault();
+    console.log("Submitted");
+
+    const titileValid = validateInput(titleInput, titleError, titleErrorMsgs);
+    const contentValid = validateInput(contentInput, contentError, contentErrorMsgs);
+
+    //object with a true or false value for each input that indicates if the field is valid or not
+    const isFormValid = {
+        titileValid: titileValid,
+        contentValid: contentValid,
+    }
+
+
+    //returns an array of the objects values something like [true, true, false, false]
+    const isFormValidArr = Object.values(isFormValid); 
+
+    //if every value in the array is true, this returns true
+    const formValid = isFormValidArr.every((field) => field === true); 
+})
