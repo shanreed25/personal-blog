@@ -74,5 +74,16 @@ form.addEventListener("submit", function (e){
     const isFormValidArr = Object.values(isFormValid); 
 
     //if every value in the array is true, this returns true
-    const formValid = isFormValidArr.every((field) => field === true); 
+    const formValid = isFormValidArr.every((field) => field === true);
+
+    //return first invalid field
+    const firstInvalidfield = form.querySelector(":invalid");
+
+    if (formValid) {
+        alert("Form Submitted");
+        form.reset();
+    } else if (firstInvalidfield) {
+        //If any field is invalid, focus on the first invalid field.
+        firstInvalidfield.focus();
+  }
 })
