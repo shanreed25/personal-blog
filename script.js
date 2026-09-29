@@ -29,6 +29,7 @@ const contentErrorMsgs = {
 
 //this function works for both title and content
 function validateInput(input, errSpan, inputMessages){
+    input.classList.add("touched");
     //check inputs for only spaces and then set a custom error message
     if (input.value.length > 0 && input.value.trim() === "") {
         input.setCustomValidity("Enter more than just spaces");
@@ -92,6 +93,13 @@ form.addEventListener("submit", function (e){
         alert("Form Submitted");
         
         form.reset();
+
+        /*when the form is resets the fields then become empty again so
+            the touched class needs to be removed from the input and textarea
+        */
+    [titleInput, contentInput].forEach(
+      (input) => input.classList.remove("touched"),
+    );
         
     } else if (firstInvalidfield) {
         //If any field is invalid, focus on the first invalid field.

@@ -21,6 +21,10 @@ form, .input-container{
     margin-bottom: 20px;
 }
 
+.input-container input.touched:invalid, textarea.touched:invalid {
+  border-color: #e74c3c; /* Light red for invalid built-in states */
+}
+
 label {
     margin-bottom: 10px;
 }
