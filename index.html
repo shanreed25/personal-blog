@@ -41,6 +41,22 @@
             <!-- No post meassage: I want JS to show or hide this based on if there are any post or not-->
             <p id="no-post-message">No post yet. Write your first post above</p>
         </section>
+
+        <dialog id="edit-dialog">
+            <form id="edit-form">
+                <h2>Edit Post</h2>
+                <label for="edit-title">Title</label>
+                <input type="text" id="edit-title">
+
+                <label for="edit-content">Content</label>
+                <textarea id="edit-content" required></textarea>
+
+                <div>
+                    <button type="button">Cancel</button>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </dialog>
     </main>
 
     
