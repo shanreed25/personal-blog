@@ -51,17 +51,19 @@ function validateInput(input, errSpan, inputMessages){
     return true;// need the function to return true or false because that is the signal that the form is ok to submit
 };
 
-function createPostCards(post){
-    const date = new Date(post.timestamp);
-    const postDate = date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-    })
+//adds each post to the post list
+function addPostToList(){
+    const post = {
+        id: crypto.randomUUID(),
+        title: titleInput.value.trim(),
+        content: contentInput.value.trim(),
+        timestamp: new Date(Date.now()),
+    }
 
-
+    posts.unshift(post)
+}
+//Creates cards for 
+function createPostCards(){
     posts.forEach(post => {
         const postContainer = document.createElement("li");
         const title = document.createElement("h3");
@@ -87,6 +89,15 @@ function createPostCards(post){
 
         title.textContent = post.title;
         content.textContent = post.content;
+
+        const date = new Date(post.timestamp);
+        const postDate = date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+        });
         timestamp.textContent = postDate;
         editButton.textContent = "EDIT";
         deleteButton.textContent = "DELETE";
@@ -96,31 +107,23 @@ function createPostCards(post){
 
         postsContainer.appendChild(postContainer);
     })
-}
+};
 
+//displays the list of post in the UI
 function renderPost(){
     postsContainer.innerHTML = " ";//remove currently rendered post
-
-    const post = {
-        id: crypto.randomUUID(),
-        title: titleInput.value.trim(),
-        content: contentInput.value.trim(),
-        timestamp: new Date(Date.now()),
-    }
-
-    posts.push(post)
-
     //Remove empty state message
     if (posts.length > 0){
         noPostMsg.classList.add("no-msg")
     }
 
-    createPostCards(post);
+    createPostCards();
     
     console.log(posts);
 }
 
-function savePosts(){
+//Saves to local storagee
+function saveLocalPosts(){
     const localposts = JSON.stringify(posts);
     localStorage.setItem(LOCAL_STORAGE_KEY, localposts)
 };
@@ -155,6 +158,7 @@ form.addEventListener("submit", function (e){
 
     if (formValid) {
         alert("Form Submitted");
+        addPostToList();
         renderPost();
         form.reset();
 
