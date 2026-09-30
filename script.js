@@ -18,11 +18,6 @@ const editTitle = document.getElementById("edit-title");
 const editContent = document.getElementById("edit-content");
 const cancelEdit = document.getElementById("cancel-edit");
 
-console.log(editDialog);
-console.log(editForm);
-console.log(editTitle);
-console.log(editContent);
-console.log(cancelEdit);
 
 const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
@@ -248,3 +243,23 @@ form.addEventListener("submit", function (e) {
     firstInvalidfield.focus();
   }
 });
+
+
+editForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    posts = posts.map(function (post){
+        if (post.id === postToEditId){
+            // ...post spread copies over the fields that are unchanged
+            post = {...post, title: editTitle.value, content: editContent.value}
+            return post;
+        }
+        return post
+    })
+
+    localStorage.setItem("posts", JSON.stringify(posts));
+    renderPost()
+
+    editDialog.close();
+    postToEditId = null;
+    console.log(posts);
+})
