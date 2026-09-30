@@ -51,7 +51,7 @@ function validateInput(input, errSpan, inputMessages){
 };
 
 function renderPost(){
-    postsContainer.innerHTML = "";//remove currently rendered post
+    postsContainer.innerHTML = " ";//remove currently rendered post
 
     const post = {
         id: crypto.randomUUID(),
@@ -84,6 +84,7 @@ function renderPost(){
         const timestamp = document.createElement("p");
         
         postContainer.classList.add("post-card");
+        postContainer.dataset.id = post.id;
         title.classList.add("post-title");
 
         title.innerText = post.title;
