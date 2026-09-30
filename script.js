@@ -11,6 +11,7 @@ const contentError = document.querySelector("#content-error");
 const postsContainer = document.querySelector("#posts-container");
 const noPostMsg = document.querySelector("#no-post-message");
 
+const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
 //Title error messages object, that maps the flag to the error message
 const titleErrorMsgs = {
@@ -50,20 +51,7 @@ function validateInput(input, errSpan, inputMessages){
     return true;// need the function to return true or false because that is the signal that the form is ok to submit
 };
 
-
-function renderPost(){
-    postsContainer.innerHTML = " ";//remove currently rendered post
-
-    const post = {
-        id: crypto.randomUUID(),
-        title: titleInput.value.trim(),
-        content: contentInput.value.trim(),
-        timestamp: new Date(Date.now()),
-    }
-
-    posts.push(post)
-
-    //convert date
+function createPostCards(post){
     const date = new Date(post.timestamp);
     const postDate = date.toLocaleDateString("en-US", {
         month: "short",
@@ -73,11 +61,7 @@ function renderPost(){
         minute: "2-digit",
     })
 
-    //Remove empty state message
-    if (posts.length > 0){
-        noPostMsg.classList.add("no-msg")
-    }
-    
+
     posts.forEach(post => {
         const postContainer = document.createElement("li");
         const title = document.createElement("h3");
@@ -96,7 +80,9 @@ function renderPost(){
 
 
         postButtons.classList.add("post-btns-container");
+        editButton.type = "button";
         editButton.classList.add("post-btn", "edit-btn");
+        deleteButton.type = "button";
         deleteButton.classList.add("post-btn", "delete-btn");
 
         title.textContent = post.title;
@@ -110,9 +96,34 @@ function renderPost(){
 
         postsContainer.appendChild(postContainer);
     })
+}
+
+function renderPost(){
+    postsContainer.innerHTML = " ";//remove currently rendered post
+
+    const post = {
+        id: crypto.randomUUID(),
+        title: titleInput.value.trim(),
+        content: contentInput.value.trim(),
+        timestamp: new Date(Date.now()),
+    }
+
+    posts.push(post)
+
+    //Remove empty state message
+    if (posts.length > 0){
+        noPostMsg.classList.add("no-msg")
+    }
+
+    createPostCards(post);
     
     console.log(posts);
 }
+
+function savePosts(){
+    const localposts = JSON.stringify(posts);
+    localStorage.setItem(LOCAL_STORAGE_KEY, localposts)
+};
 
 // addEventListener passes the event object as the first argument automatically,
 // so validateInput is wrapped in a function that calls it with the three values it needs
