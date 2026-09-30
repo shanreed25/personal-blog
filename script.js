@@ -42,13 +42,14 @@ function validateInput(input, errSpan, inputMessages){
     // then the each [key, value] array is destructured into a flag and message avriable
     for (const [flag, message] of Object.entries(inputMessages)){
         if (input.validity[flag]) {//look up each flag on the validity object, then sets error message for the first one that is true
-            errSpan.innerText = message ?? input.validationMessage; //use message unless message is null or undefined, then use field.validationMessage
+            errSpan.textContent = message ?? input.validationMessage; //use message unless message is null or undefined, then use field.validationMessage
             return false;//I only want one message to show so the loop needs to stop, and return false so the form does not submit
         }
     }
-    errSpan.innerText = "";//if the loop completes with no match the span is cleared
+    errSpan.textContent = "";//if the loop completes with no match the span is cleared
     return true;// need the function to return true or false because that is the signal that the form is ok to submit
 };
+
 
 function renderPost(){
     postsContainer.innerHTML = " ";//remove currently rendered post
@@ -82,16 +83,30 @@ function renderPost(){
         const title = document.createElement("h3");
         const content = document.createElement("p");
         const timestamp = document.createElement("p");
+
+
+        const postButtons = document.createElement("div");
+        const editButton = document.createElement("button");
+        const deleteButton = document.createElement("button");
         
         postContainer.classList.add("post-card");
-        postContainer.dataset.id = post.id;
         title.classList.add("post-title");
+        postContainer.dataset.id = post.id;
+        
 
-        title.innerText = post.title;
-        content.innerText = post.content;
-        timestamp.innerText = postDate;
 
-        postContainer.append(title, timestamp, content)
+        postButtons.classList.add("post-btns-container");
+        editButton.classList.add("post-btn", "edit-btn");
+        deleteButton.classList.add("post-btn", "delete-btn");
+
+        title.textContent = post.title;
+        content.textContent = post.content;
+        timestamp.textContent = postDate;
+        editButton.textContent = "EDIT";
+        deleteButton.textContent = "DELETE";
+
+        postButtons.append(editButton, deleteButton);
+        postContainer.append(title, timestamp, content, postButtons);
 
         postsContainer.appendChild(postContainer);
     })
