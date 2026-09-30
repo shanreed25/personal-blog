@@ -13,6 +13,7 @@ const noPostMsg = document.querySelector("#no-post-message");
 
 const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
+loadPosts();
 //Title error messages object, that maps the flag to the error message
 const titleErrorMsgs = {
     valueMissing: "Title is required" ,
@@ -128,6 +129,23 @@ function saveLocalPosts(){
     localStorage.setItem(LOCAL_STORAGE_KEY, localposts)
 };
 
+function loadPosts(){
+    const savedPosts = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+    if (!savedPosts){
+        return [];
+    }
+    
+    try {
+    return JSON.parse(savedPosts)
+    } catch (err) {
+        console.error("Could not load post", err);
+        return [];
+    }
+
+
+}
+
 // addEventListener passes the event object as the first argument automatically,
 // so validateInput is wrapped in a function that calls it with the three values it needs
 titleInput.addEventListener("input", () => validateInput(titleInput, titleError, titleErrorMsgs));
@@ -135,17 +153,11 @@ contentInput.addEventListener("input", () => validateInput(contentInput, content
 
 form.addEventListener("submit", function (e){
     e.preventDefault();
-    
-
-    const titileValid = validateInput(titleInput, titleError, titleErrorMsgs);
-    const contentValid = validateInput(contentInput, contentError, contentErrorMsgs);
-
     //object with a true or false value for each input that indicates if the field is valid or not
     const isFormValid = {
-        titileValid: titileValid,
-        contentValid: contentValid,
+        titileValid: validateInput(titleInput, titleError, titleErrorMsgs),
+        contentValid: validateInput(contentInput, contentError, contentErrorMsgs),
     }
-
 
     //returns an array of the objects values something like [true, true, false, false]
     const isFormValidArr = Object.values(isFormValid); 
@@ -159,6 +171,7 @@ form.addEventListener("submit", function (e){
     if (formValid) {
         alert("Form Submitted");
         addPostToList();
+        saveLocalPosts();
         renderPost();
         form.reset();
 
