@@ -64,6 +64,8 @@ function addPostToList(){
 
     posts.unshift(post)
 }
+
+
 //Creates cards for 
 function createPostCards(){
     posts.forEach(post => {
@@ -98,6 +100,7 @@ function createPostCards(){
             hour: "numeric",
             minute: "2-digit",
         });
+
         timestamp.textContent = postDate;
         editButton.textContent = "EDIT";
         deleteButton.textContent = "DELETE";
@@ -121,12 +124,19 @@ function createPostCards(){
             const postId = card.dataset.id;
 
             console.log(postId);
+            const confirmDeletion = confirm(`Are you sure you want to delete ${post.title}?`)
+            if (!confirmDeletion){
+                return;
+            }
 
             posts = posts.filter(function (post){
                 if (post.id !== postId){
                     return post;
                 }
             })
+
+            
+
             console.log(posts);
             saveLocalPosts();
             renderPost();
@@ -142,10 +152,7 @@ function renderPost(){
     if (posts.length > 0){
         noPostMsg.classList.add("no-msg")
     }
-
     createPostCards();
-    
-    console.log(posts);
 }
 
 //Saves to local storagee
