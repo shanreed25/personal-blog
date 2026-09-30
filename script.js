@@ -114,7 +114,12 @@ function createPostCards(){
                 return
             }
 
-            console.log(e.target);
+            //get the card the delete button belongs to
+            const card = deleteButton.closest(".post-card");
+
+            //get  the id stored on card
+            const postId = card.dataset.id;
+            console.log(postId);
         })
     })
 };
