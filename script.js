@@ -84,12 +84,13 @@ function renderPost(){
         const timestamp = document.createElement("p");
         
         postContainer.classList.add("post-card");
-        
+        title.classList.add("post-title");
+
         title.innerText = post.title;
         content.innerText = post.content;
         timestamp.innerText = postDate;
 
-        postContainer.append(title, content, timestamp)
+        postContainer.append(title, timestamp, content)
 
         postsContainer.appendChild(postContainer);
     })
