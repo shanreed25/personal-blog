@@ -80,8 +80,6 @@ function createPostCards(){
         postContainer.classList.add("post-card");
         title.classList.add("post-title");
         postContainer.dataset.id = post.id;
-        
-
 
         postButtons.classList.add("post-btns-container");
         editButton.type = "button";
@@ -108,6 +106,16 @@ function createPostCards(){
         postContainer.append(title, timestamp, content, postButtons);
 
         postsContainer.appendChild(postContainer);
+
+
+        postContainer.addEventListener("click", function(e){
+            //if the delete button is not clicked do nothing
+            if (!e.target.classList.contains("delete-btn")){
+                return
+            }
+
+            console.log(e.target);
+        })
     })
 };
 
