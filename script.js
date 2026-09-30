@@ -11,6 +11,21 @@ const contentError = document.querySelector("#content-error");
 const postsContainer = document.querySelector("#posts-container");
 const noPostMsg = document.querySelector("#no-post-message");
 
+//Edit Modal
+const editDialog = document.getElementById("edit-dialog");
+const editForm = document.getElementById("edit-form");
+const editTitle = document.getElementById("edit-title");
+const editContent = document.getElementById("edit-content");
+const cancelEdit = document.getElementById("cancel-edit");
+
+
+console.log(editDialog);
+console.log(editForm);
+console.log(editTitle);
+console.log(editContent);
+console.log(cancelEdit);
+
+
 const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
 let posts = loadPosts();

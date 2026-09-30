@@ -42,6 +42,7 @@
             <p id="no-post-message">No post yet. Write your first post above</p>
         </section>
 
+        <!-- dialog stays hidden until it is opened -->
         <dialog id="edit-dialog">
             <form id="edit-form">
                 <h2>Edit Post</h2>
@@ -52,7 +53,7 @@
                 <textarea id="edit-content" required></textarea>
 
                 <div>
-                    <button type="button">Cancel</button>
+                    <button type="button" id="cancel-edit">Cancel</button>
                     <button type="submit">Save</button>
                 </div>
             </form>
