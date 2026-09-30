@@ -1,9 +1,9 @@
-const posts = [];
+// const posts = [];
 
 const form = document.querySelector("#new-post-form");
 const titleInput = document.querySelector("#title");
 const contentInput = document.querySelector("#content");
-const addPostBtn = document.querySelector("#add-post-btn");
+const addPostBtn = document.querySelector("#post-btn");
 
 const titleError = document.querySelector("#title-error");
 const contentError = document.querySelector("#content-error");
@@ -13,7 +13,8 @@ const noPostMsg = document.querySelector("#no-post-message");
 
 const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
-loadPosts();
+const posts = loadPosts();
+renderPost();
 //Title error messages object, that maps the flag to the error message
 const titleErrorMsgs = {
     valueMissing: "Title is required" ,
