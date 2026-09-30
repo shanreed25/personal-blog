@@ -78,10 +78,12 @@ function renderPost(){
     }
     
     posts.forEach(post => {
-        const postContainer = document.createElement("li")
+        const postContainer = document.createElement("li");
         const title = document.createElement("h3");
         const content = document.createElement("p");
         const timestamp = document.createElement("p");
+        
+        postContainer.classList.add("post-card");
         
         title.innerText = post.title;
         content.innerText = post.content;

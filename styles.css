@@ -61,14 +61,24 @@ button:hover{
 }
 
 .posts{
+    margin: 0 auto;
     display:flex;
     flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
 }
 
-li{
+#posts-container{
+    padding: 0;
+}
+
+.post-card{
     list-style: none;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+.post-card:hover{
+    box-shadow: 0 8px 22px rgba(70, 0, 130, 0.18);
+    transform: translate(-2px);
 }
 
 .no-msg{
