@@ -51,13 +51,29 @@ function validateInput(input, errSpan, inputMessages){
 };
 
 function renderPost(){
+    postContainer.innerHTML = "";//remove currently rendered post
+
     const post = {
         id: crypto.randomUUID(),
         title: titleInput.value.trim(),
         content: contentInput.value.trim(),
         timestamp: new Date(Date.now()),
     }
+
     posts.push(post)
+    
+    posts.forEach(post => {
+        const title = document.createElement("h3");
+        const content = document.createElement("p");
+        const timestamp = document.createElement("p");
+        
+        title.innerText = post.title;
+        content.innerText = post.content;
+        timestamp.innerText = post.timestamp;
+
+        postContainer.append(title, content, timestamp);
+    })
+    
     console.log(posts);
 }
 
