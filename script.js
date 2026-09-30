@@ -61,6 +61,21 @@ function renderPost(){
     }
 
     posts.push(post)
+
+    //convert date
+    const date = new Date(post.timestamp);
+    const postDate = date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+    })
+
+    //Remove empty state message
+    if (posts.length > 0){
+        noPostMsg.classList.add("no-msg")
+    }
     
     posts.forEach(post => {
         const title = document.createElement("h3");
@@ -69,7 +84,7 @@ function renderPost(){
         
         title.innerText = post.title;
         content.innerText = post.content;
-        timestamp.innerText = post.timestamp;
+        timestamp.innerText = postDate;
 
         postContainer.append(title, content, timestamp);
     })

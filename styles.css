@@ -66,3 +66,7 @@ button:hover{
     /* justify-content: center; */
     align-items: center;
 }
+
+.no-msg{
+    display: none;
+}
