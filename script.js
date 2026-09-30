@@ -78,33 +78,46 @@ function addPostToList() {
 }
 
 function handleDelete(deleteButton, title) {
-        //get the card the delete button belongs to
-        const card = deleteButton.closest(".post-card");
+  //get the card the delete button belongs to
+  const card = deleteButton.closest(".post-card");
 
-        //get  the id stored on card
-        const postId = card.dataset.id;
+  //get  the id stored on card
+  const postId = card.dataset.id;
 
-        console.log(postId);
-        const confirmDeletion = confirm(
-            `Are you sure you want to delete ${title}?`,
-        );
-        if (!confirmDeletion) {
-            return;
-        }
+  console.log(postId);
+  const confirmDeletion = confirm(`Are you sure you want to delete ${title}?`);
+  if (!confirmDeletion) {
+    return;
+  }
 
-        posts = posts.filter(function (post) {
-            if (post.id !== postId) {
-            return post;
-            }
-        });
+  posts = posts.filter(function (post) {
+    if (post.id !== postId) {
+      return post;
+    }
+  });
 
-        console.log(posts);
-        saveLocalPosts();
-        renderPost();
-        console.log(card.dataset.id);
-};
+  console.log(posts);
+  saveLocalPosts();
+  renderPost();
+  console.log(card.dataset.id);
+}
 
+function handleEdit(editButton) {
+  const card = editButton.closest(".post-card");
+  const postId = card.dataset.id;
 
+  //return the first matching post
+  const post = posts.find(function (post) {
+    if (post.id === postId) {
+      return post;
+    }
+  });
+
+  postToEditId = postId;
+  editTitle.value = post.title;
+  editContent.value = post.content;
+  editDialog.showModal();
+}
 
 //Creates cards for
 function createPostCards() {
@@ -151,11 +164,12 @@ function createPostCards() {
 
     postContainer.addEventListener("click", function (e) {
       const deleteBtn = e.target.classList.contains("delete-btn");
+      const editBtn = e.target.classList.contains("edit-btn");
       //if the delete button is not clicked do nothing
       if (deleteBtn) {
         handleDelete(deleteButton, post.title);
-      } else {
-        console.log("ok");
+      } else if (editBtn) {
+        handleEdit(editButton)
       }
     });
   });
