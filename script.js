@@ -8,7 +8,7 @@ const addPostBtn = document.querySelector("#add-post-btn");
 const titleError = document.querySelector("#title-error");
 const contentError = document.querySelector("#content-error");
 
-const postContainer = document.querySelector("#post-container");
+const postsContainer = document.querySelector("#posts-container");
 const noPostMsg = document.querySelector("#no-post-message");
 
 
@@ -51,7 +51,7 @@ function validateInput(input, errSpan, inputMessages){
 };
 
 function renderPost(){
-    postContainer.innerHTML = "";//remove currently rendered post
+    postsContainer.innerHTML = "";//remove currently rendered post
 
     const post = {
         id: crypto.randomUUID(),
@@ -78,6 +78,7 @@ function renderPost(){
     }
     
     posts.forEach(post => {
+        const postContainer = document.createElement("li")
         const title = document.createElement("h3");
         const content = document.createElement("p");
         const timestamp = document.createElement("p");
@@ -86,7 +87,9 @@ function renderPost(){
         content.innerText = post.content;
         timestamp.innerText = postDate;
 
-        postContainer.append(title, content, timestamp);
+        postContainer.append(title, content, timestamp)
+
+        postsContainer.appendChild(postContainer);
     })
     
     console.log(posts);

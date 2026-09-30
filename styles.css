@@ -67,6 +67,10 @@ button:hover{
     align-items: center;
 }
 
+li{
+    list-style: none;
+}
+
 .no-msg{
     display: none;
 }
