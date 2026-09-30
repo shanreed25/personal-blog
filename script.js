@@ -256,10 +256,15 @@ editForm.addEventListener("submit", function(e) {
         return post
     })
 
-    localStorage.setItem("posts", JSON.stringify(posts));
+    saveLocalPosts()
     renderPost()
 
     editDialog.close();
     postToEditId = null;
     console.log(posts);
+})
+
+cancelEdit.addEventListener("click", function () {
+    editDialog.close();
+    postToEditId = null;
 })
