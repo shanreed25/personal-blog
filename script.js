@@ -50,7 +50,16 @@ function validateInput(input, errSpan, inputMessages){
     return true;// need the function to return true or false because that is the signal that the form is ok to submit
 };
 
-
+function renderPost(){
+    const post = {
+        id: crypto.randomUUID(),
+        title: titleInput.value.trim(),
+        content: contentInput.value.trim(),
+        timestamp: new Date(Date.now()),
+    }
+    posts.push(post)
+    console.log(posts);
+}
 
 // addEventListener passes the event object as the first argument automatically,
 // so validateInput is wrapped in a function that calls it with the three values it needs
@@ -81,30 +90,15 @@ form.addEventListener("submit", function (e){
     const firstInvalidfield = form.querySelector(":invalid");
 
     if (formValid) {
-     
-        const post = {
-            id: crypto.randomUUID(),
-            title: titleInput.value.trim(),
-            content: contentInput.value.trim(),
-            timestamp: new Date(Date.now()),
-        }
-        posts.push(post)
-        console.log(posts);
         alert("Form Submitted");
-        
+        renderPost();
         form.reset();
 
         /*remove touch class from input*/
-    [titleInput, contentInput].forEach(
-      (input) => input.classList.remove("touched"),
-    );
+        [titleInput, contentInput].forEach((input) => input.classList.remove("touched"));
         
     } else if (firstInvalidfield) {
         //If any field is invalid, focus on the first invalid field.
         firstInvalidfield.focus();
   }
 });
-
-const post = {
-
-}
