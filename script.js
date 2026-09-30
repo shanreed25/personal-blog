@@ -13,7 +13,7 @@ const noPostMsg = document.querySelector("#no-post-message");
 
 const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
-const posts = loadPosts();
+let posts = loadPosts();
 renderPost();
 //Title error messages object, that maps the flag to the error message
 const titleErrorMsgs = {
@@ -119,7 +119,18 @@ function createPostCards(){
 
             //get  the id stored on card
             const postId = card.dataset.id;
+
             console.log(postId);
+
+            posts = posts.filter(function (post){
+                if (post.id !== postId){
+                    return post;
+                }
+            })
+            console.log(posts);
+            saveLocalPosts();
+            renderPost();
+            console.log(card.dataset.id);
         })
     })
 };
