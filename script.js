@@ -112,6 +112,7 @@ function handleEdit(editButton) {
   postToEditId = postId;
   editTitle.value = post.title;
   editContent.value = post.content;
+  clearEditErrors();
   editDialog.showModal();
 }
 
@@ -165,7 +166,7 @@ function createPostCards() {
       if (deleteBtn) {
         handleDelete(deleteButton, post.title);
       } else if (editBtn) {
-        handleEdit(editButton)
+        handleEdit(editButton);
       }
     });
   });
@@ -202,6 +203,20 @@ function loadPosts() {
   }
 }
 
+//if you get an error in the dialog and then cancel
+function clearEditErrors() {
+  const editActions = [
+    [editTitle, editTitleError],
+    [editContent, editContentError],
+  ];
+
+  editActions.forEach(([field, errSpan]) => {
+    errSpan.textContent = "";
+    field.classList.remove("touched");
+    field.setCustomValidity("");
+  });
+}
+
 // addEventListener passes the event object as the first argument automatically,
 // so validateInput is wrapped in a function that calls it with the three values it needs
 titleInput.addEventListener("input", () =>
@@ -236,7 +251,6 @@ form.addEventListener("submit", function (e) {
   const firstInvalidfield = form.querySelector(":invalid");
 
   if (formValid) {
-    
     addPostToList();
     saveLocalPosts();
     renderPost();
@@ -253,27 +267,36 @@ form.addEventListener("submit", function (e) {
   }
 });
 
+editForm.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-editForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    posts = posts.map(function (post){
-        if (post.id === postToEditId){
-            // ...post spread copies over the fields that are unchanged
-            post = {...post, title: editTitle.value, content: editContent.value}
-            return post;
-        }
-        return post
-    })
+  //both errors show at the same time
+  const titleValid = validateInput(editTitle, editTitleError, titleErrorMsgs);
+  const contentValid = validateInput(editContent, editContentError, contentErrorMsgs);
 
-    saveLocalPosts()
-    renderPost()
 
-    editDialog.close();
-    postToEditId = null;
-    console.log(posts);
-})
+  if (!titleValid || !contentValid) {
+    editForm.querySelector(":invalid").focus();
+    return;
+  }
+
+  posts = posts.map(function (post) {
+    if (post.id === postToEditId) {
+      // ...post spread copies over the fields that are unchanged
+      post = { ...post, title: editTitle.value, content: editContent.value };
+      return post;
+    }
+    return post;
+  });
+
+  saveLocalPosts();
+  renderPost();
+
+  editDialog.close();
+  postToEditId = null;
+});
 
 cancelEdit.addEventListener("click", function () {
-    editDialog.close();
-    postToEditId = null;
-})
+  editDialog.close();
+  postToEditId = null;
+});
