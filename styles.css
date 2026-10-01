@@ -27,6 +27,7 @@ form, .input-container{
 
 label {
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 input, textarea{
@@ -107,6 +108,7 @@ form button:hover{
 .post-btn{
     padding: 10px 20px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .edit-btn{
@@ -123,4 +125,33 @@ form button:hover{
 
 .no-msg{
     display: none;
+}
+
+dialog {
+    background-color: #ffffff;
+    border: 2px solid #7d00e4;;
+    border-radius: 12px;
+    padding: 24px;
+    width:400px;
+    box-shadow:
+        0 10px 30px rgba(125, 0, 228, 0.25),
+        0 0 0 6px rgba(125, 0, 228, 0.08);
+}
+
+dialog label{
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: bold;
+}
+
+dialog textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+dialog button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 100px;
 }

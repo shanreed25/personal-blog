@@ -43,14 +43,16 @@
         </section>
 
         <!-- dialog stays hidden until it is opened -->
-        <dialog id="edit-dialog">
+        <dialog id="edit-dialog" novalidate>
             <form id="edit-form">
                 <h2>Edit Post</h2>
                 <label for="edit-title">Title</label>
-                <input type="text" id="edit-title">
+                <input type="text" id="edit-title" maxlength="100" required>
+                <span id="edit-title-error" class="error-message"></span>
 
                 <label for="edit-content">Content</label>
                 <textarea id="edit-content" required></textarea>
+                <span id="edit-content-error" class="error-message"></span>
 
                 <div>
                     <button type="button" id="cancel-edit">Cancel</button>

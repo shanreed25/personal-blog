@@ -17,7 +17,8 @@ const editForm = document.getElementById("edit-form");
 const editTitle = document.getElementById("edit-title");
 const editContent = document.getElementById("edit-content");
 const cancelEdit = document.getElementById("cancel-edit");
-
+const editTitleError = document.getElementById("edit-title-error");
+const editContentError = document.getElementById("edit-content-error");
 
 const LOCAL_STORAGE_KEY = "blogPosts"; //name the localStorage stores the data as
 
@@ -210,6 +211,13 @@ contentInput.addEventListener("input", () =>
   validateInput(contentInput, contentError, contentErrorMsgs),
 );
 
+editTitle.addEventListener("input", () =>
+  validateInput(editTitle, editTitleError, titleErrorMsgs),
+);
+editContent.addEventListener("input", () =>
+  validateInput(editContent, editContentError, contentErrorMsgs),
+);
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   //object with a true or false value for each input that indicates if the field is valid or not
@@ -228,11 +236,12 @@ form.addEventListener("submit", function (e) {
   const firstInvalidfield = form.querySelector(":invalid");
 
   if (formValid) {
-    alert("Form Submitted");
+    
     addPostToList();
     saveLocalPosts();
     renderPost();
     form.reset();
+    alert("New Post Added");
 
     /*remove touch class from input*/
     [titleInput, contentInput].forEach((input) =>
